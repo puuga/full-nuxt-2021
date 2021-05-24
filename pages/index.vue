@@ -32,7 +32,15 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import { BasicType } from '@/types/BasicType.type'
+
 export default Vue.extend({
+  async asyncData({ app }) {
+    const users: Array<BasicType> = (await app.$axios.get('/api/v1/users')).data
+    const tasks: Array<BasicType> = (await app.$axios.get('/api/v1/tasks')).data
+    return { users, tasks }
+  },
+
   data() {
     return {
       msg: 'Hello',
